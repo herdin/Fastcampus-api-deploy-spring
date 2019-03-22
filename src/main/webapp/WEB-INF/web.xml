@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="
+       	http://java.sun.com/xml/ns/javaee
+		http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID"
+	version="3.0"
+	>
+
+    <display-name>SimpleSpring</display-name>
+    
+    <!-- ************************************** -->
+    <!-- CONTEXT PARAM -->
+    <!-- ************************************** -->
+    <!-- param for ContextLoaderListener -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+        	classpath:/spring/application-config.xml
+        	classpath:/spring/database-config-mysqldb.xml
+       	</param-value>
+    </context-param>
+    
+    <!-- param for ApplicationContext profile-->
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>dbcp</param-value>
+    </context-param>
+    
+    <!-- ************************************** -->
+    <!-- LISTENER -->
+    <!-- ************************************** -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!-- ************************************** -->
+    <!-- FILTER -->
+    <!-- ************************************** -->
+    <!--<filter> 태그는 <servlet> 태그보다 앞에 놓여야 한다./ 필터를 지정하는 역할-->
+	<!-- <filter> 
+		<filter-name>myFilter</filter-name> getFilterName()
+		<filter-class>filter.MyFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>myFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+    <!-- ************************************** -->
+    <!-- SERVLET -->
+    <!-- ************************************** -->
+    <servlet>
+        <servlet-name>mainServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:/spring/mvc-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mainServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+</web-app>
